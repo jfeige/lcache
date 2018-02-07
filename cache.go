@@ -19,8 +19,6 @@ type Item struct {
 	Key          string
 	Object       interface{}
 	BytesObj     []byte
-	StopChan     chan bool   //停止信号
-	ResetChan    chan bool   //重置过期时间信号
 	Expiration   int64       //过期时长时间（当前秒＋过期时长秒）1540304304
 	ExpireTicket *time.Timer //过期定时器
 }
@@ -66,8 +64,6 @@ func (this *Cache) Set(key string, value interface{}) error {
 		Key:        key,
 		Object:     value,
 		Expiration: 0,
-		StopChan:   make(chan bool),
-		ResetChan:  make(chan bool),
 	}
 	switch reflect.ValueOf(value).Kind() {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.String, reflect.Float32, reflect.Float64:
@@ -154,8 +150,6 @@ func (this *Cache) Hmset(key string, args ...interface{}) error {
 	item = Item{
 		Key:        key,
 		Object:     tmp_map,
-		StopChan:   make(chan bool),
-		ResetChan:  make(chan bool),
 		Expiration: 0,
 	}
 	this.items[key] = item
@@ -208,8 +202,6 @@ func (this *Cache) Zadd(key string, values ...interface{}) error {
 	item = Item{
 		Key:        key,
 		Object:     tmp_slice,
-		StopChan:   make(chan bool),
-		ResetChan:  make(chan bool),
 		Expiration: 0,
 	}
 	this.items[key] = item
