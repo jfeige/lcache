@@ -25,7 +25,7 @@ go get github.com/jfeige/lcache
 ## 使用方法:
 
 ```
-  cache := NewCache()
+  	cache := NewCache()
 
 	//set
 	cache.Set("first", "first value")
