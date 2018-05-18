@@ -195,7 +195,6 @@ func (this *Cache) Zadd(key string, values ...interface{}) error {
 
 	tmp_slice := make([]interface{}, 0)
 	for _, v := range values {
-		fmt.Println("---", v)
 		tmp_slice = append(tmp_slice, v)
 	}
 
