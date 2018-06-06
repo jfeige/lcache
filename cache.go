@@ -119,7 +119,7 @@ func (this *Cache) Get(key string, tp ...interface{}) (interface{}, error) {
 func (this *Cache) Hmset(key string, args ...interface{}) error {
 	this.Lock()
 	defer this.Unlock()
-	//args: key,value,key,value...
+
 	if len(args)%2 != 0 {
 		return ErrArgsCount
 	}
